@@ -19,8 +19,7 @@ export class SearchChefView extends React.Component {
         return (  
           <div>
             <div>
-            <MaterialUIAutocomplete/>
-            </div>
+            <img src={Background} className="background"/>
          </div>
         )
 
