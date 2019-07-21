@@ -213,11 +213,11 @@ class BookingCard extends Component {
                              border: '2px yellow',
                              fontSize: 'block',
                              color: 'white',
-                             background: this.ifCanceled() ? 'red' : this.ifNeedConfirmation() ? 'lightBlue' : this.ifReviewed()? 'purple': 'green',
+                             background: this.ifCanceled() ? 'red' : this.ifNeedConfirmation() ? 'lightBlue' : this.ifReviewed() ? 'purple' : 'green',
                              paddingBottom: '15px'
                          }}>{this.state.status === 'inProgress' ? 'Need Confirmation' : this.state.status}</Button>}
                 />
-                
+
                 <div style={{
                     display: 'flex',
                     flexDirection: 'row',
@@ -251,8 +251,14 @@ class BookingCard extends Component {
                             marginTop: '30px'
                         }}>{this.getDate()} <br/> {this.getTimeSlot()}</h5>
                     </div>
-                    <div style={{width: '100%'}}>
-                    <div style={{width: '100%', marginLeft: '85%'}}>
+                    <div style={{width: '20%', marginLeft: '15%'}}>
+                        <div style={{
+                            color: 'green',
+                            marginTop: '30%',
+                            matginLeft: '15%',
+                            marginRight: '50px',
+                            fontSize: '40px',
+                        }}>€{this.props.price}</div>
                         {
                             this.ifFinished() ? '' : this.ifCanceled() ? '' :
                                 <Dialog actionName='cancel' onClick={() => this.cancelBooking(false)}/>
@@ -261,23 +267,14 @@ class BookingCard extends Component {
                             : this.ifNeedConfirmation() ?
                                 <Dialog actionName='confirm' onClick={() => this.confirmBooking()}/> : ''}
 
+                        {
+                            this.props.userType === 'Customer' && this.ifFinished() && !this.ifReviewed() ?
+                                <Button style={{color: 'white', background: 'grey'}} raised primary
+                                        onClick={() => this.addReview()} add review> add review</Button>
+                                : ''
+                        }
                     </div>
-                    <div style={{
-                            color: 'green',
-                            marginTop: '10%',
-                            marginLeft: '85%',
-                            marginRight: '40px',
-                            fontSize: '40px',
-                        }}>€{this.props.price}</div>
                 </div>
-                </div>
-                <div>
-                    {
-                        this.props.userType === 'Customer' && this.ifFinished() && !this.ifReviewed()?
-                        <Button style = {{color: 'white', background: 'grey'}} raised primary onClick={() => this.addReview()}add review> add review</Button>
-                        : ''
-                    }
-                    </div>
             </Card>
         );
     }
